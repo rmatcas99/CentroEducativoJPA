@@ -28,9 +28,17 @@ public class Estudiante implements Serializable {
 
 	private String email;
 
+	@Lob
+	private byte[] imagen;
+
 	private String nombre;
 
 	private String telefono;
+
+	//bi-directional many-to-one association to TipologiaSexo
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="idTipologiaSexo")
+	private TipologiaSexo tipologiasexo;
 
 	//bi-directional many-to-one association to ValoracionMateria
 	@OneToMany(mappedBy="estudiante")
@@ -87,6 +95,14 @@ public class Estudiante implements Serializable {
 		this.email = email;
 	}
 
+	public byte[] getImagen() {
+		return this.imagen;
+	}
+
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
+	}
+
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -101,6 +117,14 @@ public class Estudiante implements Serializable {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	public TipologiaSexo getTipologiasexo() {
+		return this.tipologiasexo;
+	}
+
+	public void setTipologiasexo(TipologiaSexo tipologiasexo) {
+		this.tipologiasexo = tipologiasexo;
 	}
 
 	public List<ValoracionMateria> getValoracionmaterias() {

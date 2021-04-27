@@ -23,7 +23,7 @@ public class Materia implements Serializable {
 	private String nombre;
 
 	//bi-directional many-to-one association to Curso
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	private Curso curso;
 
 	//bi-directional many-to-one association to ValoracionMateria

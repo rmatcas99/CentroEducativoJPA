@@ -3,35 +3,35 @@ package model.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 
+
 /**
  * The persistent class for the valoracionmateria database table.
  * 
  */
 @Entity
-@Table (name="valoracionmateria")
-@NamedQuery(name = "ValoracionMateria.findAll", query = "SELECT v FROM ValoracionMateria v")
+@NamedQuery(name="ValoracionMateria.findAll", query="SELECT v FROM ValoracionMateria v")
 public class ValoracionMateria implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
 	private float valoracion;
 
-	// bi-directional many-to-one association to Estudiante
-	@ManyToOne
-	@JoinColumn(name = "idEstudiante")
+	//bi-directional many-to-one association to Estudiante
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="idEstudiante")
 	private Estudiante estudiante;
 
-	// bi-directional many-to-one association to Materia
-	@ManyToOne
-	@JoinColumn(name = "idMateria")
+	//bi-directional many-to-one association to Materia
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="idMateria")
 	private Materia materia;
 
-	// bi-directional many-to-one association to Profesor
-	@ManyToOne
-	@JoinColumn(name = "idProfesor")
+	//bi-directional many-to-one association to Profesor
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="idProfesor")
 	private Profesor profesor;
 
 	public ValoracionMateria() {
