@@ -12,12 +12,6 @@ import java.util.List;
 @Entity
 @NamedQuery(name="TipologiaSexo.findAll", query="SELECT t FROM TipologiaSexo t")
 public class TipologiaSexo implements Serializable {
-	
-	@Override
-	public String toString() {
-		return descripcion;
-	}
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -96,5 +90,12 @@ public class TipologiaSexo implements Serializable {
 
 		return profesor;
 	}
+
+	@Override
+	public String toString() {
+		return descripcion;
+	}
+	
+	
 
 }

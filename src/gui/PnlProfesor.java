@@ -14,7 +14,12 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -141,12 +146,12 @@ public class PnlProfesor extends JPanel {
 			for (int i = 0; i < this.pnlDatos.getJcbSexo().getItemCount(); i++) {
 				if (this.actual.getTipologiasexo().getId() == this.pnlDatos.getJcbSexo().getItemAt(i).getId()) {
 					this.pnlDatos.getJcbSexo().setSelectedIndex(i);
-
 				}
 			}
 
-			//this.pnlDatos.setImagen(this.actual.getImagen());
-			//this.pnlDatos.setColor(this.actual.getColorFav());
+			this.pnlDatos.setImagen(this.actual.getImagen());
+			this.pnlDatos.setColor(this.actual.getColor());
+			this.pnlDatos.setLblDimensiones(calculaPixeles());
 		}
 	}
 	
@@ -177,8 +182,8 @@ public class PnlProfesor extends JPanel {
 		this.pnlDatos.setEmail("");
 		this.pnlDatos.setTelefono("");
 		this.pnlDatos.getJcbSexo().setSelectedItem(null);
-		//this.pnlDatos.setImagen(null);
-		//this.pnlDatos.setColor("");
+		this.pnlDatos.setLabelImag("");
+		this.pnlDatos.setColor("");
 
 	}
 
@@ -196,9 +201,9 @@ public class PnlProfesor extends JPanel {
 
 		TipologiaSexo t = (TipologiaSexo) this.pnlDatos.getJcbSexo().getSelectedItem();
 		this.actual.setTipologiasexo(t);
-//
-//		this.actual.setImagen(this.pnlDatos.getImagen());
-//		this.actual.setColorFav(this.pnlDatos.getColor());
+
+		this.actual.setImagen(this.pnlDatos.getImagen());
+		this.actual.setColor(this.pnlDatos.getColor());
 
 	}
 
@@ -221,6 +226,20 @@ public class PnlProfesor extends JPanel {
 		}
 	}
 	
-	
+	private String calculaPixeles () {
+
+        String str = "";
+        InputStream is = new ByteArrayInputStream( this.actual.getImagen());
+
+        try {
+            BufferedImage newBi = ImageIO.read(is);
+             str = newBi.getWidth() + " x " + newBi.getHeight() + " píxeles";
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return str;
+    }
 
 }
