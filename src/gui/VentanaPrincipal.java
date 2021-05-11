@@ -30,7 +30,7 @@ public class VentanaPrincipal extends JFrame {
 		super("Centro Educativo");
 		this.setBounds(0, 0, 600, 400);
 		
-		this.setJMenuBar(new gui.MenuBar());
+		//this.setJMenuBar(new gui.MenuBar());
 		
 		this.setLayout(new BorderLayout());
 		this.add(getPanelPrincipal(), BorderLayout.CENTER);
@@ -45,13 +45,10 @@ public class VentanaPrincipal extends JFrame {
 		
 		jTabbedPane.add("Estudiantes", new PnlEstudiante());
 		jTabbedPane.add("Profesores", new PnlProfesor());
+		jTabbedPane.add("Seleccion Nota", new PnlSeleccionNota());
 		
 		return jTabbedPane;
 	}
-	
-	
-	
-	
 	
 	/**
 	 * @return the jTabbedPane
@@ -59,7 +56,6 @@ public class VentanaPrincipal extends JFrame {
 	public JTabbedPane getjTabbedPane() {
 		return jTabbedPane;
 	}
-
 
 	/**
 	 * 

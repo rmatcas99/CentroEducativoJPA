@@ -12,7 +12,7 @@ public class MenuBar extends JMenuBar {
 	public MenuBar() {
 		JMenu menuArchivo = new JMenu("Archivo");
 		
-		String entidades[] = new String[] {"Estudiantes", "Profesores"};
+		String entidades[] = new String[] {"Estudiantes", "Profesores", "Notas"};
 		
 		for (int i = 0; i < entidades.length; i++) {
 			final int iFinal = i;

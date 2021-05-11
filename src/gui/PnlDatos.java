@@ -358,6 +358,10 @@ public class PnlDatos extends JPanel {
 
 	}
 
+	
+	/**
+	 * 
+	 */
 	public void seleccionaColor() {
 		Color color = jColorChooser.showDialog(null, "Seleccione un Color", Color.gray);
 		// Si el usuario pulsa sobre aceptar, el color elegido no ser� nulo
@@ -372,6 +376,9 @@ public class PnlDatos extends JPanel {
 		return jtfColor.getText();
 	}
 
+	/**
+	 * 
+	 */
 	private void seleccionaFichero() {
 		this.jfilechooserImagen = new JFileChooser();
 
@@ -448,6 +455,10 @@ public class PnlDatos extends JPanel {
 		return this.imagen;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public JLabel getLblDimensiones() {
 		return lblDimensiones;
 	}
@@ -456,6 +467,12 @@ public class PnlDatos extends JPanel {
 		this.lblDimensiones.setText(lblDimensiones);
 	}
 
+	
+	/**
+	 * 
+	 * @param component
+	 * @param popup
+	 */
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {

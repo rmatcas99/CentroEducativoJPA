@@ -33,5 +33,9 @@ public class ControladorSexo {
 			List<TipologiaSexo> list = (List<TipologiaSexo>) q.getResultList();
 			em.close();
 			return list;
+			
+			//"SELECT * FROM estudiante WHERE nombre LIKE'"+str+"'"
+			//SELECT * FROM clientes WHERE nombre LIKE '%m%';
+			//SELECT * FROM clientes WHERE nombre LIKE '%a%' or nombre LIKE '%r%' ;
 		}
 }
