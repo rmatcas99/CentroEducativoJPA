@@ -167,5 +167,8 @@ public class Estudiante implements Serializable {
 		this.colorPreferido = colorPreferido;
 	}
 
-	
+	@Override
+	public String toString() {
+		return apellido1 + " " + apellido2 + ", " + nombre;
+	}
 }

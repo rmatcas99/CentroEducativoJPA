@@ -53,6 +53,27 @@ public class ControladorValoracionMateria {
 		}
 		return resultado;
 	}
+	
+	public ValoracionMateria findByMateriaAndProfesorAndEstudianteAndValoracion(Materia materia, Profesor profesor,
+			Estudiante estudiante, Float valoracion) {
+		ValoracionMateria resultado = null;
+		EntityManager em = factory.createEntityManager();
+		 
+		try {
+			Query q = em.createNativeQuery("Select * from valoracionmateria where idProfesor = ? and "
+					+ "idMateria = ? and idEstudiante = ? and valoracion = ?", ValoracionMateria.class);
+			q.setParameter(1, profesor.getId());
+			q.setParameter(2, materia.getId());
+			q.setParameter(3, estudiante.getId());
+			q.setParameter(4, valoracion);
+			
+			resultado = (ValoracionMateria) q.getSingleResult();
+		}
+		catch (Exception ex) {
+		}
+		em.close();
+		return resultado;
+	}
 
 	/**
 	 * 

@@ -137,7 +137,7 @@ public class ControladorEstudiante {
 	public List<Estudiante> findAll() {
 		EntityManager em = factory.createEntityManager();
 
-		Query q = em.createNativeQuery("SELECT * FROM profesor", Profesor.class);
+		Query q = em.createNativeQuery("SELECT * FROM estudiante", Estudiante.class);
 
 		List<Estudiante> list = (List<Estudiante>) q.getResultList();
 		em.close();

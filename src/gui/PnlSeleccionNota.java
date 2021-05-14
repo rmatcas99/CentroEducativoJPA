@@ -6,12 +6,25 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JComboBox;
 import java.awt.Insets;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
+
+import model.controllers.ControladorEstudiante;
+import model.controllers.ControladorMateria;
+import model.controllers.ControladorProfesor;
+import model.controllers.ControladorValoracionMateria;
+import model.entities.Estudiante;
+import model.entities.Materia;
+import model.entities.Profesor;
+import model.entities.ValoracionMateria;
+
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class PnlSeleccionNota extends JPanel {
@@ -21,6 +34,13 @@ public class PnlSeleccionNota extends JPanel {
 	JComboBox jcbNota;
 	JList jListSeleccionados;
 	JList jListNoSeleccionados;
+	DefaultListModel<Estudiante> dlmSeleccionados =  new DefaultListModel<Estudiante>();
+	DefaultListModel<Estudiante> dlmNoSeleccionados =  new DefaultListModel<Estudiante>();
+	JScrollPane scrollPane_1 = new JScrollPane(jListNoSeleccionados);
+	JScrollPane scrollPane = new JScrollPane(jListSeleccionados);
+	
+	Materia m = new Materia();
+	Profesor p = new Profesor();
 	
 	/**
 	 * Create the panel.
@@ -42,6 +62,10 @@ public class PnlSeleccionNota extends JPanel {
 		add(lblNewLabel, gbc_lblNewLabel);
 		
 		jcbMateria = new JComboBox();
+		List<Materia> materia = ControladorMateria.getInstance().findAll();
+		for (Materia m : materia) {
+			jcbMateria.addItem(m);
+		}
 		GridBagConstraints gbc_jcbMateria = new GridBagConstraints();
 		gbc_jcbMateria.insets = new Insets(0, 0, 5, 0);
 		gbc_jcbMateria.fill = GridBagConstraints.HORIZONTAL;
@@ -58,6 +82,10 @@ public class PnlSeleccionNota extends JPanel {
 		add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
 		jcbProfesor = new JComboBox();
+		List<Profesor> profesor = ControladorProfesor.getInstance().findAll();
+		for (Profesor p : profesor) {
+			jcbProfesor.addItem(p);
+		}
 		GridBagConstraints gbc_jcbProfesor = new GridBagConstraints();
 		gbc_jcbProfesor.insets = new Insets(0, 0, 5, 0);
 		gbc_jcbProfesor.fill = GridBagConstraints.HORIZONTAL;
@@ -74,6 +102,10 @@ public class PnlSeleccionNota extends JPanel {
 		add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
 		jcbNota = new JComboBox();
+		List<Integer> nota;
+		for (int i = 0; i < 11; i++) {
+			jcbNota.addItem(i);
+		}
 		GridBagConstraints gbc_jcbNota = new GridBagConstraints();
 		gbc_jcbNota.insets = new Insets(0, 0, 5, 0);
 		gbc_jcbNota.fill = GridBagConstraints.HORIZONTAL;
@@ -81,7 +113,12 @@ public class PnlSeleccionNota extends JPanel {
 		gbc_jcbNota.gridy = 2;
 		add(jcbNota, gbc_jcbNota);
 		
-		JButton jbtnActualizarAlumnado = new JButton("Botón acutalizar alumnado");
+		JButton jbtnActualizarAlumnado = new JButton("Botón actualizar alumnado");
+		jbtnActualizarAlumnado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				actualizarAlumnado();
+			}
+		});
 		GridBagConstraints gbc_jbtnActualizarAlumnado = new GridBagConstraints();
 		gbc_jbtnActualizarAlumnado.anchor = GridBagConstraints.EAST;
 		gbc_jbtnActualizarAlumnado.insets = new Insets(0, 0, 5, 0);
@@ -104,7 +141,7 @@ public class PnlSeleccionNota extends JPanel {
 		gbl_panel.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.anchor = GridBagConstraints.WEST;
 		gbc_scrollPane.gridx = 0;
@@ -113,7 +150,7 @@ public class PnlSeleccionNota extends JPanel {
 		gbc_scrollPane.gridy = 0;
 		panel.add(scrollPane, gbc_scrollPane);
 		
-		jListNoSeleccionados = new JList();
+		jListNoSeleccionados = new JList(dlmNoSeleccionados);
 		scrollPane.setViewportView(jListNoSeleccionados);
 		
 		JPanel panel_1 = new JPanel();
@@ -133,7 +170,7 @@ public class PnlSeleccionNota extends JPanel {
 		JButton btnNewButton_2 = new JButton("<<");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				deseleccionarTodos();
 			}
 		});
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
@@ -145,7 +182,7 @@ public class PnlSeleccionNota extends JPanel {
 		JButton btnNewButton = new JButton("<");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				deseleccionarUno();
 			}
 		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
@@ -157,7 +194,7 @@ public class PnlSeleccionNota extends JPanel {
 		JButton btnNewButton_3 = new JButton(">");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				seleccionarUno();
 			}
 		});
 		GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
@@ -169,7 +206,7 @@ public class PnlSeleccionNota extends JPanel {
 		JButton btnNewButton_4 = new JButton(">>");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				seleccionarTodos();
 			}
 		});
 		GridBagConstraints gbc_btnNewButton_4 = new GridBagConstraints();
@@ -177,7 +214,7 @@ public class PnlSeleccionNota extends JPanel {
 		gbc_btnNewButton_4.gridy = 3;
 		panel_1.add(btnNewButton_4, gbc_btnNewButton_4);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1 = new JScrollPane();
 		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
 		gbc_scrollPane_1.anchor = GridBagConstraints.EAST;
 		gbc_scrollPane_1.insets = new Insets(0, 0, 5, 0);
@@ -186,10 +223,15 @@ public class PnlSeleccionNota extends JPanel {
 		gbc_scrollPane_1.gridy = 0;
 		panel.add(scrollPane_1, gbc_scrollPane_1);
 		
-		jListSeleccionados = new JList();
+		jListSeleccionados = new JList(dlmSeleccionados);
 		scrollPane_1.setViewportView(jListSeleccionados);
 		
 		JButton btnNewButton_1 = new JButton("Guardar las notas de todos los alumnos seleccionados");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				guardar();
+			}
+		});
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.anchor = GridBagConstraints.EAST;
 		gbc_btnNewButton_1.insets = new Insets(0, 0, 0, 5);
@@ -199,5 +241,87 @@ public class PnlSeleccionNota extends JPanel {
 		
 	}
 	
+	private void seleccionarTodos() {
+		for (int i = 0; i < this.dlmNoSeleccionados.size(); i++) {
+			this.dlmSeleccionados.addElement(this.dlmNoSeleccionados.elementAt(i));
+		}
+		this.dlmNoSeleccionados.clear();
+	}
+	
+	private void deseleccionarTodos() {
+		for (int i = 0; i < this.dlmSeleccionados.size(); i++) {
+			this.dlmNoSeleccionados.addElement(this.dlmSeleccionados.elementAt(i));
+		}
+		this.dlmSeleccionados.clear();
+	}
+	
+	private void seleccionarUno() {
+		for (int i = 0; i < this.jListNoSeleccionados.getSelectedIndices().length; i++) {
+			this.dlmSeleccionados.addElement(this.dlmNoSeleccionados.getElementAt(jListNoSeleccionados.getSelectedIndices()[i]));
+		}
+		
+		for (int i = this.jListNoSeleccionados.getSelectedIndices().length - 1; i >= 0; i--) {
+			this.dlmNoSeleccionados.removeElementAt(this.jListNoSeleccionados.getSelectedIndices()[i]);
+		}
+	}
+	
+	private void deseleccionarUno() {
+		for (int i = 0; i < this.jListSeleccionados.getSelectedIndices().length; i++) {
+			this.dlmNoSeleccionados.addElement(this.dlmSeleccionados.getElementAt(jListSeleccionados.getSelectedIndices()[i]));
+		}
+		
+		for (int i = this.jListSeleccionados.getSelectedIndices().length - 1; i >= 0; i--) {
+			this.dlmSeleccionados.removeElementAt(this.jListSeleccionados.getSelectedIndices()[i]);
+		}
+	}
 
+	private void actualizarAlumnado() {
+		
+		dlmNoSeleccionados.removeAllElements();
+		dlmSeleccionados.removeAllElements();
+		
+		m = (Materia) this.jcbMateria.getSelectedItem();
+		p = (Profesor) this.jcbProfesor.getSelectedItem();
+		Integer n = (Integer) this.jcbNota.getSelectedItem();
+		
+		List<Estudiante> estudiantes = ControladorEstudiante.getInstance().findAll();
+		
+		for (Estudiante estudiante : estudiantes) {
+			
+			ValoracionMateria vm = ControladorValoracionMateria.getInstancia().findByMateriaAndProfesorAndEstudianteAndValoracion(m, p, estudiante, Float.valueOf(n));
+			if (vm == null) {
+				this.dlmNoSeleccionados.addElement(estudiante);
+			}
+			else {
+				this.dlmSeleccionados.addElement(estudiante);
+			}
+		}
+		
+	}
+	
+	private void guardar() {
+		Profesor p = (Profesor) this.jcbProfesor.getSelectedItem();
+		Materia m = (Materia) this.jcbMateria.getSelectedItem();
+		Integer v = (Integer) this.jcbNota.getSelectedItem();
+		
+		for (int i = 0; i < this.dlmSeleccionados.size(); i++) {
+			Estudiante e = this.dlmSeleccionados.elementAt(i);
+			
+			ValoracionMateria vm = ControladorValoracionMateria.getInstancia().findByMateriaAndProfesorAndEstudiante(m, p, e);
+			
+			if (vm == null) {
+				vm = new ValoracionMateria();
+				vm.setEstudiante(e);
+				vm.setProfesor(p);
+				vm.setMateria(m);
+				vm.setValoracion(v);
+			}
+			else {
+				vm.setValoracion(v);
+			}
+			
+			ControladorValoracionMateria.getInstancia().save(vm);
+		}
+				
+	}
 }
