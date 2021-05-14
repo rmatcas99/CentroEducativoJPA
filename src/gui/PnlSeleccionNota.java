@@ -11,9 +11,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JList;
 import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PnlSeleccionNota extends JPanel {
 
+	JComboBox jcbMateria;
+	JComboBox jcbProfesor;
+	JComboBox jcbNota;
+	JList jListSeleccionados;
+	JList jListNoSeleccionados;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -33,7 +41,7 @@ public class PnlSeleccionNota extends JPanel {
 		gbc_lblNewLabel.gridy = 0;
 		add(lblNewLabel, gbc_lblNewLabel);
 		
-		JComboBox jcbMateria = new JComboBox();
+		jcbMateria = new JComboBox();
 		GridBagConstraints gbc_jcbMateria = new GridBagConstraints();
 		gbc_jcbMateria.insets = new Insets(0, 0, 5, 0);
 		gbc_jcbMateria.fill = GridBagConstraints.HORIZONTAL;
@@ -49,7 +57,7 @@ public class PnlSeleccionNota extends JPanel {
 		gbc_lblNewLabel_1.gridy = 1;
 		add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		JComboBox jcbProfesor = new JComboBox();
+		jcbProfesor = new JComboBox();
 		GridBagConstraints gbc_jcbProfesor = new GridBagConstraints();
 		gbc_jcbProfesor.insets = new Insets(0, 0, 5, 0);
 		gbc_jcbProfesor.fill = GridBagConstraints.HORIZONTAL;
@@ -65,13 +73,13 @@ public class PnlSeleccionNota extends JPanel {
 		gbc_lblNewLabel_2.gridy = 2;
 		add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
-		JComboBox jcbComboBox = new JComboBox();
-		GridBagConstraints gbc_jcbComboBox = new GridBagConstraints();
-		gbc_jcbComboBox.insets = new Insets(0, 0, 5, 0);
-		gbc_jcbComboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_jcbComboBox.gridx = 1;
-		gbc_jcbComboBox.gridy = 2;
-		add(jcbComboBox, gbc_jcbComboBox);
+		jcbNota = new JComboBox();
+		GridBagConstraints gbc_jcbNota = new GridBagConstraints();
+		gbc_jcbNota.insets = new Insets(0, 0, 5, 0);
+		gbc_jcbNota.fill = GridBagConstraints.HORIZONTAL;
+		gbc_jcbNota.gridx = 1;
+		gbc_jcbNota.gridy = 2;
+		add(jcbNota, gbc_jcbNota);
 		
 		JButton jbtnActualizarAlumnado = new JButton("Botón acutalizar alumnado");
 		GridBagConstraints gbc_jbtnActualizarAlumnado = new GridBagConstraints();
@@ -105,8 +113,8 @@ public class PnlSeleccionNota extends JPanel {
 		gbc_scrollPane.gridy = 0;
 		panel.add(scrollPane, gbc_scrollPane);
 		
-		JList list = new JList();
-		scrollPane.setViewportView(list);
+		jListNoSeleccionados = new JList();
+		scrollPane.setViewportView(jListNoSeleccionados);
 		
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
@@ -123,6 +131,11 @@ public class PnlSeleccionNota extends JPanel {
 		panel_1.setLayout(gbl_panel_1);
 		
 		JButton btnNewButton_2 = new JButton("<<");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
 		gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 0);
 		gbc_btnNewButton_2.gridx = 0;
@@ -130,6 +143,11 @@ public class PnlSeleccionNota extends JPanel {
 		panel_1.add(btnNewButton_2, gbc_btnNewButton_2);
 		
 		JButton btnNewButton = new JButton("<");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
 		gbc_btnNewButton.gridx = 0;
@@ -137,6 +155,11 @@ public class PnlSeleccionNota extends JPanel {
 		panel_1.add(btnNewButton, gbc_btnNewButton);
 		
 		JButton btnNewButton_3 = new JButton(">");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
 		gbc_btnNewButton_3.insets = new Insets(0, 0, 5, 0);
 		gbc_btnNewButton_3.gridx = 0;
@@ -144,6 +167,11 @@ public class PnlSeleccionNota extends JPanel {
 		panel_1.add(btnNewButton_3, gbc_btnNewButton_3);
 		
 		JButton btnNewButton_4 = new JButton(">>");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		GridBagConstraints gbc_btnNewButton_4 = new GridBagConstraints();
 		gbc_btnNewButton_4.gridx = 0;
 		gbc_btnNewButton_4.gridy = 3;
@@ -158,8 +186,8 @@ public class PnlSeleccionNota extends JPanel {
 		gbc_scrollPane_1.gridy = 0;
 		panel.add(scrollPane_1, gbc_scrollPane_1);
 		
-		JList list_1 = new JList();
-		scrollPane_1.setViewportView(list_1);
+		jListSeleccionados = new JList();
+		scrollPane_1.setViewportView(jListSeleccionados);
 		
 		JButton btnNewButton_1 = new JButton("Guardar las notas de todos los alumnos seleccionados");
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
@@ -170,5 +198,6 @@ public class PnlSeleccionNota extends JPanel {
 		add(btnNewButton_1, gbc_btnNewButton_1);
 		
 	}
+	
 
 }

@@ -6,6 +6,8 @@ import java.awt.MenuBar;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
+import gui.PanelValoracionMultiple.PnlValoracion;
+
 public class VentanaPrincipal extends JFrame {
 
 	private JTabbedPane jTabbedPane = null;
@@ -44,7 +46,7 @@ public class VentanaPrincipal extends JFrame {
 		jTabbedPane = new JTabbedPane();
 		
 		jTabbedPane.add("Estudiantes", new PnlEstudiante());
-		jTabbedPane.add("Profesores", new PnlProfesor());
+		jTabbedPane.add("Valoracion Múltiple", new PnlValoracion());
 		jTabbedPane.add("Seleccion Nota", new PnlSeleccionNota());
 		
 		return jTabbedPane;

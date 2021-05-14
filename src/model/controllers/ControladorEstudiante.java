@@ -1,11 +1,14 @@
 package model.controllers;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import model.entities.Estudiante;
+import model.entities.Profesor;
 
 public class ControladorEstudiante {
 
@@ -116,8 +119,6 @@ public class ControladorEstudiante {
 		}
 	}
 
-
-
 	
 	/**
 	 * 
@@ -131,6 +132,16 @@ public class ControladorEstudiante {
 		em.remove(es);
 		em.getTransaction().commit();
 		em.close();
+	}
+	
+	public List<Estudiante> findAll() {
+		EntityManager em = factory.createEntityManager();
+
+		Query q = em.createNativeQuery("SELECT * FROM profesor", Profesor.class);
+
+		List<Estudiante> list = (List<Estudiante>) q.getResultList();
+		em.close();
+		return list;
 	}
 
 }
